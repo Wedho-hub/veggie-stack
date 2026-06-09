@@ -1,8 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
+# ────────────────────────────────────────────────────────────────
+# Dependencies
+# ────────────────────────────────────────────────────────────────
+node_modules/
+.pnp
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -10,32 +10,130 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# ────────────────────────────────────────────────────────────────
+# Next.js
+# ────────────────────────────────────────────────────────────────
+.next/
+out/
+build/
+.vercel/
+
+# Next.js generated type files — auto-regenerated on every build
+next-env.d.ts
+.next/types/
+
+# ────────────────────────────────────────────────────────────────
+# Environment variables  ← NEVER commit secrets
+# ────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# ────────────────────────────────────────────────────────────────
+# TypeScript
+# ────────────────────────────────────────────────────────────────
+*.tsbuildinfo
+
+# ────────────────────────────────────────────────────────────────
+# Testing & coverage
+# ────────────────────────────────────────────────────────────────
 /coverage
+/.nyc_output
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# ────────────────────────────────────────────────────────────────
+# Logs
+# ────────────────────────────────────────────────────────────────
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 .pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# ────────────────────────────────────────────────────────────────
+# OS-generated files
+# ────────────────────────────────────────────────────────────────
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
 
-# vercel
-.vercel
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ────────────────────────────────────────────────────────────────
+# Editors & IDEs
+# ────────────────────────────────────────────────────────────────
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# JetBrains (WebStorm, IntelliJ)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Vim / Neovim
+*.swp
+*.swo
+*~
+Session.vim
+
+# Emacs
+\#*\#
+.#*
+
+# ────────────────────────────────────────────────────────────────
+# Certificates & keys
+# ────────────────────────────────────────────────────────────────
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# ────────────────────────────────────────────────────────────────
+# Cloudinary / uploads (local temp files)
+# ────────────────────────────────────────────────────────────────
+/uploads/
+/tmp/
+
+# ────────────────────────────────────────────────────────────────
+# MongoDB / seeds
+# ────────────────────────────────────────────────────────────────
+*.bson
+dump/
+
+# ────────────────────────────────────────────────────────────────
+# Misc
+# ────────────────────────────────────────────────────────────────
+.cache/
+*.tgz
+*.tar.gz
+.turbo/
