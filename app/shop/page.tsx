@@ -113,7 +113,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {products.map((product) => (
+                {products.map((product, index) => (
                   <div
                     key={product._id}
                     className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 overflow-hidden"
@@ -125,6 +125,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       src={product.imageUrl}
       alt={product.name}
       fill
+      loading={index < 3 ? 'eager' : 'lazy'}
       className="object-cover"
     />
   ) : (

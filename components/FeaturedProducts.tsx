@@ -1,13 +1,11 @@
-// components/FeaturedProducts.tsx
+'use client'
+
+import { useRef, useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
-import { ShoppingCart, ArrowRight } from 'lucide-react'
-
-// Importing our shared type from types/index.ts
-// This is the TypeScript payoff — one definition, used everywhere
+import { ShoppingCart, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Product } from '@/types'
+import AnimateIn from '@/components/AnimateIn'
 
-// Temporary hardcoded products — we'll replace with real DB data later
-// TypeScript: Product[] means this must be an array of Product objects
 const mockProducts: Product[] = [
   {
     _id: '1',
@@ -53,35 +51,27 @@ const mockProducts: Product[] = [
   },
 ]
 
-// TypeScript: defining props for a child component
-interface ProductCardProps {
-  product: Product
+const emojiMap: Record<string, string> = {
+  fruit: '🍓',
+  vegetable: '🥦',
+  gadget: '🥤',
+  supplement: '🌿',
 }
 
-// A small internal component — we'll extract this into its own file later
-function ProductCard({ product }: ProductCardProps) {
-
-  // Format price in South African Rand
+function ProductCard({ product }: { product: Product }) {
   const formattedPrice = new Intl.NumberFormat('en-ZA', {
     style: 'currency',
     currency: 'ZAR',
   }).format(product.price)
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 overflow-hidden group">
+    <div className="card-lift bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden group flex flex-col h-full">
 
-      {/* Product image placeholder */}
-      <div className="bg-gradient-to-br from-green-50 to-emerald-100 h-48 flex items-center justify-center text-5xl">
-        {product.category === 'fruit' && '🍓'}
-        {product.category === 'vegetable' && '🥦'}
-        {product.category === 'gadget' && '🥤'}
-        {product.category === 'supplement' && '🌿'}
+      <div className="bg-linear-to-br from-green-50 to-emerald-100 h-48 flex items-center justify-center text-5xl transition-transform duration-500 group-hover:scale-105">
+        {emojiMap[product.category]}
       </div>
 
-      {/* Card body */}
-      <div className="p-5">
-
-        {/* Category tag + stock badge */}
+      <div className="p-5 flex flex-col flex-1">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-medium text-green-600 uppercase tracking-wide">
             {product.category}
@@ -94,7 +84,7 @@ function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <h3 className="font-semibold text-gray-900 mb-1">{product.name}</h3>
-        <p className="text-sm text-gray-500 mb-4 leading-snug line-clamp-2">
+        <p className="text-sm text-gray-500 mb-4 leading-snug line-clamp-2 flex-1">
           {product.description}
         </p>
 
@@ -102,47 +92,111 @@ function ProductCard({ product }: ProductCardProps) {
           <p className="text-xs text-gray-400 mb-3">📍 {product.farmOrigin}</p>
         )}
 
-        {/* Price + Add to cart */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-auto">
           <span className="text-lg font-bold text-gray-900">{formattedPrice}</span>
           <button
+            type="button"
             disabled={!product.inStock}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-200 disabled:cursor-not-allowed text-white text-sm font-medium px-4 py-2 rounded-full transition-colors duration-200"
+            className="btn-cta flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-200 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none text-white text-sm font-medium px-4 py-2 rounded-full"
           >
             <ShoppingCart size={15} />
             Add
           </button>
         </div>
-
       </div>
     </div>
   )
 }
 
-// Main exported component
 export default function FeaturedProducts() {
-  return (
-    <section className="bg-gray-50 py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
 
-        {/* Section header */}
-        <div className="flex items-end justify-between mb-10">
+  const scrollToIndex = useCallback((index: number) => {
+    const el = scrollRef.current
+    if (!el) return
+    const child = el.children[index] as HTMLElement
+    if (!child) return
+    el.scrollTo({ left: child.offsetLeft, behavior: 'smooth' })
+    setActiveIndex(index)
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const handleScroll = () => {
+      const children = Array.from(el.children) as HTMLElement[]
+      let closest = 0
+      let minDist = Infinity
+      children.forEach((child, i) => {
+        const dist = Math.abs(child.offsetLeft - el.scrollLeft)
+        if (dist < minDist) { minDist = dist; closest = i }
+      })
+      setActiveIndex(closest)
+    }
+
+    el.addEventListener('scroll', handleScroll, { passive: true })
+    return () => el.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  return (
+    <section className="bg-gray-50 py-16 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <AnimateIn className="flex items-center justify-between mb-8 px-4 sm:px-6 lg:px-8">
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Fresh Today</h2>
-            <p className="text-gray-500 mt-2">Harvested this morning, at your door by lunch</p>
+            <p className="text-gray-500 mt-1">Harvested this morning, at your door by lunch</p>
           </div>
-          <Link
-            href="/shop"
-            className="hidden sm:inline-flex items-center gap-2 text-green-600 font-semibold text-sm hover:gap-3 transition-all duration-200"
-          >
-            View all <ArrowRight size={16} />
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/shop"
+              className="hidden sm:inline-flex items-center gap-1.5 text-green-600 font-semibold text-sm hover:text-green-700 transition-colors group">
+              View all
+              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
+            <div className="flex gap-2">
+              <button type="button" aria-label="Previous product"
+                onClick={() => scrollToIndex(Math.max(0, activeIndex - 1))}
+                disabled={activeIndex === 0}
+                className="icon-btn w-9 h-9 rounded-full border-2 border-gray-200 hover:border-green-400 hover:text-green-600 disabled:opacity-30 disabled:transform-none flex items-center justify-center text-gray-500 transition-colors">
+                <ChevronLeft size={16} />
+              </button>
+              <button type="button" aria-label="Next product"
+                onClick={() => scrollToIndex(Math.min(mockProducts.length - 1, activeIndex + 1))}
+                disabled={activeIndex === mockProducts.length - 1}
+                className="icon-btn w-9 h-9 rounded-full border-2 border-gray-200 hover:border-green-400 hover:text-green-600 disabled:opacity-30 disabled:transform-none flex items-center justify-center text-gray-500 transition-colors">
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          </div>
+        </AnimateIn>
+
+        {/* Scroll track */}
+        <div
+          ref={scrollRef}
+          className="no-scrollbar flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 px-4 sm:px-6 lg:px-8"
+        >
+          {mockProducts.map((product) => (
+            <div key={product._id} className="snap-start shrink-0 w-[80vw] sm:w-[45vw] lg:w-[calc(25%-15px)]">
+              <ProductCard product={product} />
+            </div>
+          ))}
         </div>
 
-        {/* Product grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {mockProducts.map((product) => (
-            <ProductCard key={product._id} product={product} />
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-2 mt-5">
+          {mockProducts.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => scrollToIndex(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === activeIndex ? 'bg-green-500 w-6' : 'bg-gray-300 w-2 hover:bg-gray-400'
+              }`}
+            />
           ))}
         </div>
 

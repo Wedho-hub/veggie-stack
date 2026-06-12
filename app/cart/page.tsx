@@ -73,7 +73,7 @@ export default function CartPage() {
                 className="bg-white rounded-2xl border border-gray-100 p-5 flex gap-5 items-center shadow-sm"
               >
                 {/* Emoji thumbnail */}
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center text-2xl shrink-0">
+                <div className="w-16 h-16 rounded-xl bg-linear-to-br from-green-50 to-emerald-100 flex items-center justify-center text-2xl shrink-0">
                   {product.category === 'fruit' && '🍓'}
                   {product.category === 'vegetable' && '🥦'}
                   {product.category === 'gadget' && '🥤'}

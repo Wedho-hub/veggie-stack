@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Clock, ArrowRight } from 'lucide-react'
 import type { BlogPost, BlogCategory } from '@/types'
+import PageHeader from '@/components/PageHeader'
 
 const CATEGORIES: { key: BlogCategory | 'all'; label: string; color: string; activeColor: string }[] = [
   { key: 'all',           label: 'All',               color: 'text-gray-600',   activeColor: 'bg-gray-900 text-white' },
@@ -58,19 +59,13 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-stone-50">
 
-      {/* ── MASTHEAD ── */}
-      <div className="bg-white border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-green-600 mb-2">The Veggie Stack Journal</p>
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900 leading-none tracking-tight mb-3">
-            Fresh Reads
-          </h1>
-          <p className="text-gray-500 text-lg max-w-xl">
-            Recipes, farm stories, nutrition science and plant-based living — straight from Cape Town.
-          </p>
-        </div>
+      <PageHeader
+        title="Fresh Reads"
+        description="Recipes, farm stories, nutrition science and plant-based living — straight from Cape Town."
+      />
 
-        {/* Category tabs */}
+      {/* Category tabs */}
+      <div className="bg-white border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-1 overflow-x-auto pb-px scrollbar-none">
             {CATEGORIES.map((cat) => (
@@ -111,21 +106,22 @@ export default function BlogPage() {
               <Link href={`/blog/${featured.slug}`} className="group block mb-12">
                 <div className="bg-white rounded-3xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-xl transition-all duration-300 grid grid-cols-1 lg:grid-cols-2">
                   {/* Image / Emoji cover */}
-                  <div className="relative h-72 lg:h-full min-h-[320px] overflow-hidden">
+                  <div className="relative h-72 lg:h-full min-h-80 overflow-hidden">
                     {featured.coverImage ? (
                       <Image
                         src={featured.coverImage}
                         alt={featured.title}
                         fill
+                        loading="eager"
                         sizes="(max-width: 1024px) 100vw, 50vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-green-600 to-emerald-400 flex items-center justify-center text-8xl">
+                      <div className="w-full h-full bg-linear-to-br from-green-600 to-emerald-400 flex items-center justify-center text-8xl">
                         {featured.coverEmoji ?? '🌱'}
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10" />
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent to-black/10" />
                     <span className="absolute top-4 left-4 text-xs font-bold uppercase tracking-widest bg-white/90 text-gray-700 px-3 py-1.5 rounded-full">
                       Featured
                     </span>
@@ -167,7 +163,7 @@ export default function BlogPage() {
             {/* ── GRID ── */}
             {rest.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                {rest.map((post) => (
+                {rest.map((post, index) => (
                   <Link
                     key={post._id}
                     href={`/blog/${post.slug}`}
@@ -180,11 +176,12 @@ export default function BlogPage() {
                           src={post.coverImage}
                           alt={post.title}
                           fill
+                          loading={index < 3 ? 'eager' : 'lazy'}
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center text-6xl">
+                        <div className="w-full h-full bg-linear-to-br from-green-50 to-emerald-100 flex items-center justify-center text-6xl">
                           {post.coverEmoji ?? '🌱'}
                         </div>
                       )}

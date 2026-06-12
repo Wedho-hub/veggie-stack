@@ -38,7 +38,7 @@ const footerSections: FooterSection[] = [
     title: 'Company',
     links: [
       { label: 'About Us', href: '/about' },
-      { label: 'How It Works', href: '/how-it-works' },
+      { label: 'How It Works', href: '/#how-it-works' },
       { label: 'Delivery Areas', href: '/delivery' },
       { label: 'FAQ', href: '/faq' },
       { label: 'Contact', href: '/contact' },
@@ -106,7 +106,7 @@ export default function Footer() {
                 placeholder="your@email.com"
                 className="flex-1 md:w-72 bg-green-900 border border-green-800 text-white placeholder:text-green-500 text-sm px-4 py-2.5 rounded-full focus:outline-none focus:border-green-500 transition-colors"
               />
-              <button type="button" className="bg-green-500 hover:bg-green-400 text-white font-semibold text-sm px-6 py-2.5 rounded-full transition-colors duration-200 whitespace-nowrap">
+              <button type="button" className="btn-cta bg-green-500 hover:bg-green-400 text-white font-semibold text-sm px-6 py-2.5 rounded-full whitespace-nowrap">
                 Subscribe
               </button>
             </div>
@@ -172,7 +172,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-green-400 hover:text-white transition-colors duration-200"
+                      className="link-nudge text-sm text-green-400 hover:text-white"
                     >
                       {link.label}
                     </Link>

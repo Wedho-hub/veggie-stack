@@ -106,11 +106,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             src={post.coverImage}
             alt={post.title}
             fill
-            priority
+            loading="eager"
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/30 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 px-6 pb-10 max-w-4xl mx-auto w-full">
             <span className={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 ${cat.bg} ${cat.color}`}>
               {cat.label}
@@ -124,7 +124,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
       ) : (
-        <div className="bg-gradient-to-br from-green-900 via-green-800 to-emerald-700 text-white">
+        <div className="bg-linear-to-br from-green-900 via-green-800 to-emerald-700 text-white">
           <div className="max-w-4xl mx-auto px-6 py-20 text-center">
             <div className="text-7xl mb-6 drop-shadow-lg">{post.coverEmoji ?? '🌱'}</div>
             <span className={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-5 ${cat.bg} ${cat.color}`}>
