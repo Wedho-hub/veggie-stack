@@ -5,26 +5,25 @@ import PartnersStrip from '@/components/PartnersStrip'
 import FeaturedSpotlights from '@/components/FeaturedSpotlights'
 import HappyCustomers from '@/components/HappyCustomers'
 import EmailCapture from '@/components/EmailCapture'
-import type { Product } from '@/types'
+import connectDB from '@/lib/mongodb'
+import ProductModel from '@/models/Product'
+import type { Product, Category } from '@/types'
 
-async function getProducts(category: string): Promise<Product[]> {
-  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-
-  const res = await fetch(`${baseUrl}/api/products?category=${category}`, {
-    cache: 'no-store',
-  })
-
-  if (!res.ok) return []
-
-  const json = await res.json()
-  return json.data
+async function getProductsByCategory(category: Category): Promise<Product[]> {
+  try {
+    await connectDB()
+    const docs = await ProductModel.find({ category }).sort({ createdAt: -1 }).lean()
+    return JSON.parse(JSON.stringify(docs)) as Product[]
+  } catch {
+    return []
+  }
 }
 
 export default async function HomePage() {
   const [vegetables, fruit, gadgets] = await Promise.all([
-    getProducts('vegetable'),
-    getProducts('fruit'),
-    getProducts('gadget'),
+    getProductsByCategory('vegetable'),
+    getProductsByCategory('fruit'),
+    getProductsByCategory('gadget'),
   ])
 
   return (
