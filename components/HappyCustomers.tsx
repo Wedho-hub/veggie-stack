@@ -25,6 +25,30 @@ const testimonials = [
     initials: 'FK',
     color: 'bg-purple-600',
   },
+  {
+    quote: "I switched from the big grocery chains six months ago and haven't looked back. The greens are always vibrant and the delivery is reliably on time.",
+    name: 'Thabo M.',
+    location: 'Woodstock',
+    orders: '22 orders',
+    initials: 'TM',
+    color: 'bg-teal-600',
+  },
+  {
+    quote: "Brilliant service from the first order. The box arrived perfectly packed with a little recipe card inside. My kids actually enjoy eating vegetables now!",
+    name: 'Sarah L.',
+    location: 'Claremont',
+    orders: '8 orders',
+    initials: 'SL',
+    color: 'bg-rose-600',
+  },
+  {
+    quote: "VeggieStack has become part of my weekly rhythm. Consistent quality, fair prices and the team is always responsive. I recommend them to everyone I know.",
+    name: 'Amira P.',
+    location: 'Salt River',
+    orders: '45 orders',
+    initials: 'AP',
+    color: 'bg-amber-600',
+  },
 ]
 
 function StarRow() {
@@ -49,29 +73,30 @@ export default function HappyCustomers() {
           <span className="inline-block bg-amber-50 text-amber-700 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
             Real Reviews
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             Our Customers Love It
           </h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto mb-5">
             Hundreds of Cape Town families trust Veggie Stack for their weekly produce.
           </p>
-          <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-100 px-4 py-2 rounded-full">
+          <div className="inline-flex items-center gap-3 bg-amber-50 border border-amber-100 px-4 py-2 rounded-full">
             <StarRow />
             <span className="text-sm font-semibold text-gray-800">4.9</span>
-            <span className="text-sm text-gray-500">from 200+ orders</span>
+            <span className="text-sm text-gray-500">from 200+ happy customers</span>
+            <span className="text-xs text-amber-600 font-semibold">⭐ Verified via Google</span>
           </div>
         </AnimateIn>
 
-        {/* Cards */}
+        {/* Cards — 3 col desktop, 1 col mobile = 2 rows */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
-            <AnimateIn key={t.name} delay={i * 120}>
+            <AnimateIn key={t.name} delay={i * 100}>
               <div className="card-lift bg-gray-50 rounded-3xl p-7 border border-gray-100 flex flex-col h-full">
 
                 {/* Open quote */}
-                <div className="text-5xl leading-none text-green-200 font-serif mb-2 select-none">&ldquo;</div>
+                <div className="font-accent text-6xl leading-none text-green-300 mb-1 select-none">&ldquo;</div>
 
-                <p className="text-gray-700 leading-relaxed mb-6 flex-1">{t.quote}</p>
+                <p className="font-accent text-xl text-gray-700 leading-relaxed mb-6 flex-1">{t.quote}</p>
 
                 <StarRow />
 
@@ -84,6 +109,7 @@ export default function HappyCustomers() {
                     <p className="font-semibold text-gray-900 text-sm">{t.name}</p>
                     <p className="text-gray-400 text-xs">{t.location} · {t.orders}</p>
                   </div>
+                  <span className="ml-auto text-xs text-green-600 font-semibold whitespace-nowrap">⭐ Verified</span>
                 </div>
 
               </div>

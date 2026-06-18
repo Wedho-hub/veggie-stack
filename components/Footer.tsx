@@ -42,6 +42,8 @@ const footerSections: FooterSection[] = [
       { label: 'Delivery Areas', href: '/delivery' },
       { label: 'FAQ', href: '/faq' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Partner Farms', href: '/farms' },
+      { label: 'Become a Supplier', href: '/suppliers' },
     ],
   },
 ]
@@ -95,7 +97,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <h3 className="text-xl font-bold text-white">Get the freshest deals 🥬</h3>
+              <h3 className="font-accent text-3xl text-white">Get the freshest deals 🥬</h3>
               <p className="text-green-400 text-sm mt-1">
                 Weekly seasonal boxes, recipes and Cape Town delivery updates.
               </p>
@@ -122,14 +124,15 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2 mb-4">
               <Image src="/logo.png" alt="Veggie Stack logo" width={32} height={32} />
-              <span className="text-lg font-bold text-white tracking-tight">
+              <span className="font-display text-lg font-bold text-white tracking-tight">
                 Veggie<span className="text-green-400">Stack</span>
               </span>
             </Link>
 
             <p className="text-green-400 text-sm leading-relaxed mb-6 max-w-xs">
-              Cape Town&apos;s plant-based delivery service. Fresh from Western Cape
-              farms, straight to your kitchen — same day.
+              Cape Town&apos;s plant-based delivery service — partnering directly with
+              Western Cape growers and suppliers to bring farm-fresh produce straight
+              to your kitchen, same day.
             </p>
 
             <ul className="space-y-2.5 mb-6">

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/mongodb'
 import mongoose, { Schema, Model } from 'mongoose'
+import { notifyAdmin } from '@/lib/email'
 
 interface IContact {
   name: string
@@ -28,6 +29,17 @@ export async function POST(request: NextRequest) {
 
     await connectDB()
     await Contact.create({ name, email, subject, message })
+
+    await notifyAdmin({
+      subject: `New Contact: ${subject}`,
+      replyTo: email,
+      html: `
+        <p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <hr/>
+        <p>${message.replace(/\n/g, '<br/>')}</p>
+      `,
+    })
 
     return NextResponse.json({ success: true }, { status: 201 })
   } catch (error) {

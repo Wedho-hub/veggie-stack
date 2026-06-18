@@ -53,10 +53,10 @@ function renderContent(content: string) {
 
     if (line.startsWith('# ')) {
       flushList()
-      elements.push(<h2 key={key++} className="text-3xl font-bold text-gray-900 mt-12 mb-4 leading-tight">{line.slice(2)}</h2>)
+      elements.push(<h2 key={key++} className="font-display text-3xl font-bold text-gray-900 mt-12 mb-4 leading-tight">{line.slice(2)}</h2>)
     } else if (line.startsWith('## ')) {
       flushList()
-      elements.push(<h3 key={key++} className="text-2xl font-bold text-gray-900 mt-10 mb-3 leading-tight">{line.slice(3)}</h3>)
+      elements.push(<h3 key={key++} className="font-display text-2xl font-bold text-gray-900 mt-10 mb-3 leading-tight">{line.slice(3)}</h3>)
     } else if (line.startsWith('### ')) {
       flushList()
       elements.push(<h4 key={key++} className="text-xl font-semibold text-gray-800 mt-8 mb-2">{line.slice(4)}</h4>)
@@ -115,7 +115,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span className={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 ${cat.bg} ${cat.color}`}>
               {cat.label}
             </span>
-            <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-4 drop-shadow">
+            <h1 className="font-display text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-4 drop-shadow">
               {post.title}
             </h1>
             {post.excerpt && (
@@ -130,7 +130,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span className={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-5 ${cat.bg} ${cat.color}`}>
               {cat.label}
             </span>
-            <h1 className="text-3xl sm:text-5xl font-extrabold leading-tight mb-4">
+            <h1 className="font-display text-3xl sm:text-5xl font-extrabold leading-tight mb-4">
               {post.title}
             </h1>
             {post.excerpt && (

@@ -8,6 +8,7 @@ import type { Product } from '@/types'
 import AddToCartButton from '@/components/AddToCartButton'
 import Image from 'next/image'
 import PageHeader from '@/components/PageHeader'
+import DeliveryProgressBanner from '@/components/DeliveryProgressBanner'
 
 // TypeScript: typing the props Next.js passes to page components
 // searchParams gives us access to ?category=fruit in the URL
@@ -106,6 +107,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
           {/* ── PRODUCT GRID ── */}
           <div className="flex-1">
+            <DeliveryProgressBanner />
             {products.length === 0 ? (
               <div className="text-center py-20">
                 <p className="text-4xl mb-4">🌱</p>

@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShoppingCart, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Product } from '@/types'
 import AnimateIn from '@/components/AnimateIn'
@@ -13,7 +14,7 @@ const mockProducts: Product[] = [
     description: 'Seasonal greens, rocket, spinach — harvested this morning',
     price: 89,
     category: 'vegetable',
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=85&fit=crop&auto=format',
     inStock: true,
     farmOrigin: 'Stellenbosch',
     createdAt: new Date(),
@@ -24,7 +25,7 @@ const mockProducts: Product[] = [
     description: 'Strawberries, blueberries and raspberries, locally grown',
     price: 65,
     category: 'fruit',
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=800&q=85&fit=crop&auto=format',
     inStock: true,
     farmOrigin: 'Elgin Valley',
     createdAt: new Date(),
@@ -35,7 +36,7 @@ const mockProducts: Product[] = [
     description: 'High-speed blender for smoothies, soups and nut milks',
     price: 1299,
     category: 'gadget',
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=800&q=85&fit=crop&auto=format',
     inStock: true,
     createdAt: new Date(),
   },
@@ -45,7 +46,7 @@ const mockProducts: Product[] = [
     description: 'Pure spirulina powder, 250g — South African sourced',
     price: 180,
     category: 'supplement',
-    imageUrl: '',
+    imageUrl: 'https://images.unsplash.com/photo-1622484212935-b6ee9dbddfd4?w=800&q=85&fit=crop&auto=format',
     inStock: false,
     createdAt: new Date(),
   },
@@ -67,8 +68,20 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <div className="card-lift bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden group flex flex-col h-full">
 
-      <div className="bg-linear-to-br from-green-50 to-emerald-100 h-48 flex items-center justify-center text-5xl transition-transform duration-500 group-hover:scale-105">
-        {emojiMap[product.category]}
+      <div className="relative bg-linear-to-br from-green-50 to-emerald-100 h-48 overflow-hidden">
+        {product.imageUrl ? (
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 80vw, (max-width: 1024px) 45vw, 25vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-5xl transition-transform duration-500 group-hover:scale-105">
+            {emojiMap[product.category]}
+          </div>
+        )}
       </div>
 
       <div className="p-5 flex flex-col flex-1">
@@ -147,7 +160,7 @@ export default function FeaturedProducts() {
         {/* Header */}
         <AnimateIn className="flex items-center justify-between mb-8 px-4 sm:px-6 lg:px-8">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">Fresh Today</h2>
+            <h2 className="font-display text-3xl font-bold text-gray-900">Fresh Today</h2>
             <p className="text-gray-500 mt-1">Harvested this morning, at your door by lunch</p>
           </div>
           <div className="flex items-center gap-3">

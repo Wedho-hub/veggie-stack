@@ -8,10 +8,24 @@ import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
 const SUBJECTS = [
   'General Inquiry',
   'Order Support',
-  'Press & Partnerships',
-  'Farm Sourcing',
-  'Other',
+  'Delivery Question',
+  'Press & Media',
+  'Partner With Us — Farm',
+  'Become a Supplier',
 ]
+
+const PARTNER_NOTE: Record<string, { note: string; href: string; label: string }> = {
+  'Partner With Us — Farm': {
+    note: 'For a faster response, use our dedicated farm partner form.',
+    href: '/farms',
+    label: 'Apply to Partner →',
+  },
+  'Become a Supplier': {
+    note: 'For a faster response, use our dedicated supplier inquiry form.',
+    href: '/suppliers',
+    label: 'Submit Inquiry →',
+  },
+}
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: SUBJECTS[0], message: '' })
@@ -51,11 +65,11 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col items-center text-center">
           <Link href="/" className="flex items-center gap-3 mb-8">
             <Image src="/logo.png" alt="Veggie Stack" width={52} height={52} className="drop-shadow-lg" />
-            <span className="text-2xl font-extrabold tracking-tight">
+            <span className="font-display text-2xl font-extrabold tracking-tight">
               Veggie<span className="text-green-300">Stack</span>
             </span>
           </Link>
-          <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-3">Get in Touch</h1>
+          <h1 className="font-display text-4xl sm:text-5xl font-extrabold leading-tight mb-3">Get in Touch</h1>
           <p className="text-green-100 text-lg max-w-xl">
             Questions about your order, press inquiries, or just want to say hi — we&apos;d love to hear from you.
           </p>
@@ -215,6 +229,14 @@ export default function ContactPage() {
                       >
                         {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
                       </select>
+                      {PARTNER_NOTE[form.subject] && (
+                        <p className="mt-2 text-sm text-green-700 bg-green-50 border border-green-100 rounded-xl px-4 py-2.5">
+                          {PARTNER_NOTE[form.subject].note}{' '}
+                          <Link href={PARTNER_NOTE[form.subject].href} className="font-semibold underline">
+                            {PARTNER_NOTE[form.subject].label}
+                          </Link>
+                        </p>
+                      )}
                     </div>
 
                     <div>

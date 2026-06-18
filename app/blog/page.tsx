@@ -132,7 +132,7 @@ export default function BlogPage() {
                     <span className={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 w-fit ${catBadge(featured.category)}`}>
                       {catLabel(featured.category)}
                     </span>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight mb-4 group-hover:text-green-700 transition-colors">
+                    <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight mb-4 group-hover:text-green-700 transition-colors">
                       {featured.title}
                     </h2>
                     {featured.excerpt && (
@@ -192,7 +192,7 @@ export default function BlogPage() {
                         {catLabel(post.category)}
                       </span>
 
-                      <h2 className="font-extrabold text-gray-900 text-lg leading-snug mb-2 group-hover:text-green-700 transition-colors line-clamp-2 flex-1">
+                      <h2 className="font-display font-extrabold text-gray-900 text-lg leading-snug mb-2 group-hover:text-green-700 transition-colors line-clamp-2 flex-1">
                         {post.title}
                       </h2>
 

@@ -1,39 +1,31 @@
 import Link from 'next/link'
-import { ShoppingBag, Clock, Package, Truck, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import AnimateIn from '@/components/AnimateIn'
 
 const steps = [
   {
     number: '01',
-    icon: <ShoppingBag size={26} />,
+    emoji: '🛒',
     title: 'Browse the Market',
     description: 'Shop our daily selection of farm-fresh produce, plant-based essentials, and kitchen gear.',
-    iconBg: 'bg-green-50',
-    iconColor: 'text-green-600',
   },
   {
     number: '02',
-    icon: <Clock size={26} />,
+    emoji: '⏰',
     title: 'Order Before 10am',
     description: 'Place your order in the morning to guarantee same-day delivery across Cape Town.',
-    iconBg: 'bg-sky-50',
-    iconColor: 'text-sky-600',
   },
   {
     number: '03',
-    icon: <Package size={26} />,
+    emoji: '📦',
     title: 'We Pack It Fresh',
     description: 'Our team hand-packs your order using produce harvested that same morning from partner farms.',
-    iconBg: 'bg-orange-50',
-    iconColor: 'text-orange-500',
   },
   {
     number: '04',
-    icon: <Truck size={26} />,
+    emoji: '🚐',
     title: 'Delivered by Lunch',
     description: 'Your order arrives at your door fresh, chilled, and ready to eat — no subscription needed.',
-    iconBg: 'bg-emerald-50',
-    iconColor: 'text-emerald-600',
   },
 ]
 
@@ -46,7 +38,7 @@ export default function HowItWorks() {
           <span className="inline-block bg-green-100 text-green-700 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
             Simple as that
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             From Farm to Your Door in 4 Steps
           </h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto">
@@ -61,8 +53,8 @@ export default function HowItWorks() {
                 <span className="absolute -bottom-3 -right-1 text-8xl font-black text-gray-50 select-none leading-none pointer-events-none">
                   {step.number}
                 </span>
-                <div className={`w-14 h-14 ${step.iconBg} rounded-2xl flex items-center justify-center mb-5 relative z-10 transition-transform duration-300 group-hover:scale-110`}>
-                  <span className={step.iconColor}>{step.icon}</span>
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mb-5 relative z-10 text-3xl transition-transform duration-300 group-hover:scale-110">
+                  {step.emoji}
                 </div>
                 <h3 className="font-bold text-gray-900 text-lg mb-2 relative z-10">{step.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed relative z-10">{step.description}</p>

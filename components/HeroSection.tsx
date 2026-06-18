@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Truck, Leaf, Shield } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { ArrowRight, Truck, Leaf, Shield, Clock } from 'lucide-react'
 
 const trustBadges = [
   {
@@ -28,6 +29,45 @@ const trustBadges = [
 const HERO_IMAGE_SRC =
   'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=1920&q=85&fit=crop'
 
+function pad(n: number) {
+  return String(n).padStart(2, '0')
+}
+
+function HeroCountdown() {
+  const [label, setLabel] = useState<string | null>(null)
+
+  useEffect(() => {
+    function tick() {
+      const now = new Date()
+      const sast = new Date(now.getTime() + 2 * 60 * 60 * 1000)
+      const cutoff = new Date(sast)
+      cutoff.setUTCHours(10, 0, 0, 0)
+      const diff = cutoff.getTime() - sast.getTime()
+
+      if (diff <= 0) {
+        setLabel("Today's 10am cutoff has passed — order now for delivery tomorrow")
+      } else {
+        const h = Math.floor(diff / 3_600_000)
+        const m = Math.floor((diff % 3_600_000) / 60_000)
+        const s = Math.floor((diff % 60_000) / 1000)
+        setLabel(`Order within ${pad(h)}:${pad(m)}:${pad(s)} for delivery today`)
+      }
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  if (!label) return null
+
+  return (
+    <span className="inline-flex items-center gap-2 bg-green-500/20 border border-green-300/40 text-green-100 text-sm font-semibold px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm animate-fade-in">
+      <Clock size={14} className="text-green-300" />
+      {label}
+    </span>
+  )
+}
+
 export default function HeroSection() {
   return (
     <section>
@@ -44,12 +84,16 @@ export default function HeroSection() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <div className="max-w-2xl">
 
-            <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-sm font-medium px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm animate-fade-in">
+            <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-sm font-medium px-4 py-1.5 rounded-full mb-4 backdrop-blur-sm animate-fade-in">
               <Leaf size={14} className="text-green-300" />
               Cape Town&apos;s Plant-Based Delivery
             </span>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6 text-white drop-shadow-sm animate-fade-up anim-delay-100">
+            <div>
+              <HeroCountdown />
+            </div>
+
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight tracking-tight mb-6 text-white drop-shadow-sm animate-fade-up anim-delay-100">
               From the Farm.{' '}
               <span className="text-green-300">To Your Kitchen.</span>
             </h1>

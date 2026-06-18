@@ -50,7 +50,7 @@ function LoginForm() {
         <div className="relative text-center text-white max-w-xs">
           <Link href="/" className="inline-flex flex-col items-center gap-3 mb-10">
             <Image src="/logo.png" alt="Veggie Stack" width={80} height={80} className="drop-shadow-xl" />
-            <span className="text-3xl font-extrabold tracking-tight">
+            <span className="font-display text-3xl font-extrabold tracking-tight">
               Veggie<span className="text-green-300">Stack</span>
             </span>
           </Link>
@@ -73,13 +73,13 @@ function LoginForm() {
           <div className="lg:hidden text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2">
               <Image src="/logo.png" alt="Veggie Stack" width={40} height={40} />
-              <span className="text-2xl font-extrabold text-green-800">
+              <span className="font-display text-2xl font-extrabold text-green-800">
                 Veggie<span className="text-green-500">Stack</span>
               </span>
             </Link>
           </div>
 
-          <h1 className="text-3xl font-extrabold text-gray-900 mb-1">Welcome back</h1>
+          <h1 className="font-display text-3xl font-extrabold text-gray-900 mb-1">Welcome back</h1>
           <p className="text-gray-500 mb-8">Sign in to your account to continue</p>
 
           <div className="bg-white rounded-3xl border border-stone-200 shadow-sm p-8">

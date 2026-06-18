@@ -9,7 +9,9 @@ import { useSession, signOut } from 'next-auth/react'
 
 const navLinks = [
   { label: 'Shop', href: '/shop' },
+  { label: 'How It Works', href: '/#how-it-works' },
   { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -33,7 +35,7 @@ export default function Navbar() {
               height={36}
               className="group-hover:scale-110 transition-transform duration-300"
             />
-            <span className="text-xl font-bold text-green-800 tracking-tight">
+            <span className="font-display text-xl font-bold text-green-800 tracking-tight">
               Veggie<span className="text-green-500">Stack</span>
             </span>
           </Link>
@@ -46,6 +48,10 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            <Link href="/farms"
+              className="btn-pill bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-1.5 rounded-full">
+              Become a Partner
+            </Link>
           </div>
 
           {/* Right side */}
@@ -142,6 +148,10 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link href="/farms" onClick={() => setMenuOpen(false)}
+            className="btn-pill text-center bg-green-600 hover:bg-green-700 text-white text-sm font-semibold py-2 rounded-full">
+            Become a Partner
+          </Link>
           {!session && (
             <div className="flex gap-3 pt-2 border-t border-gray-100">
               <Link href="/login" onClick={() => setMenuOpen(false)}

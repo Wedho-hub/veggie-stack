@@ -18,11 +18,11 @@ export default function PageHeader({ title, description }: PageHeaderProps) {
             height={48}
             className="drop-shadow-lg"
           />
-          <span className="text-2xl font-extrabold tracking-tight">
+          <span className="font-display text-2xl font-extrabold tracking-tight">
             Veggie<span className="text-green-300">Stack</span>
           </span>
         </Link>
-        <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-3">
+        <h1 className="font-display text-4xl sm:text-5xl font-extrabold leading-tight mb-3">
           {title}
         </h1>
         {description && (

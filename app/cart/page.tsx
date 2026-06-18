@@ -2,9 +2,17 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react'
 import { useCart } from '@/lib/cartContext'
 import PageHeader from '@/components/PageHeader'
+
+const categoryEmoji: Record<string, string> = {
+  fruit: '🍓',
+  vegetable: '🥦',
+  gadget: '🥤',
+  supplement: '🌿',
+}
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat('en-ZA', {
@@ -72,12 +80,19 @@ export default function CartPage() {
                 key={product._id}
                 className="bg-white rounded-2xl border border-gray-100 p-5 flex gap-5 items-center shadow-sm"
               >
-                {/* Emoji thumbnail */}
-                <div className="w-16 h-16 rounded-xl bg-linear-to-br from-green-50 to-emerald-100 flex items-center justify-center text-2xl shrink-0">
-                  {product.category === 'fruit' && '🍓'}
-                  {product.category === 'vegetable' && '🥦'}
-                  {product.category === 'gadget' && '🥤'}
-                  {product.category === 'supplement' && '🌿'}
+                {/* Thumbnail */}
+                <div className="relative w-16 h-16 rounded-xl bg-linear-to-br from-green-50 to-emerald-100 flex items-center justify-center text-2xl shrink-0 overflow-hidden">
+                  {product.imageUrl ? (
+                    <Image
+                      src={product.imageUrl}
+                      alt={product.name}
+                      fill
+                      sizes="64px"
+                      className="object-cover"
+                    />
+                  ) : (
+                    categoryEmoji[product.category]
+                  )}
                 </div>
 
                 {/* Product info */}
